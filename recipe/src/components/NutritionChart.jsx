@@ -11,7 +11,7 @@ function NutritionChart({ nutrition }) {
 
   return (
     <div>
-      <h3 className='bg-purple-600 text-gray-50 px-3 rounded'>Nutrition Breakdown</h3>
+      <h3 className='bg-yellow-600 text-gray-50 px-3 rounded'>Nutrition Breakdown</h3>
       <PieChart width={300} height={300}>
         <Pie
           data={data}

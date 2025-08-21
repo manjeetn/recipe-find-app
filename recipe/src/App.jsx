@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer'; 
 import AddRecipeModal from './components/AddRecipe';
 import { useState } from 'react';
+import MyRecipes from './pages/MyRecipe';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/recipe/:id" element={<RecipeDetails />} />
           <Route path="/favorites" element={<Favorites />} />
+       <Route path='/my-recipes' element={<MyRecipes />}/>
         </Routes>
       </main>
       <Footer />

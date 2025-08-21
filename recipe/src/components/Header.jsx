@@ -1,59 +1,117 @@
 
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Header({ onAddRecipeClick }) {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-    window.location.reload(); 
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
   };
 
   return (
-    <header className=" fixed top-0 left-0 z-50 bg-gray-900 w-full text-white shadow-md p-4">
-      <nav className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-[rgba(244,130,34,1)]  hover:scale-110 transition-transform duration-200 transition">
+    <header className="fixed top-0 left-0 z-50 w-full bg-gray-900 shadow-md">
+      <nav className="container mx-auto flex justify-between items-center px-6 py-3">
+        {/* Brand */}
+        <NavLink
+          to="/"
+          className="text-2xl font-bold text-orange-500 hover:text-orange-400 transition"
+        >
           FlavourFind
-        </Link>
+        </NavLink>
+
+       
         <div className="flex items-center space-x-6">
-          <Link to="/search" className="hover:text-orange-400 hover:scale-110 border border-orange-700 font-bold py-2 px-4 rounded transition">
-           Search
-          </Link> 
+          <NavLink
+            to="/search"
+            className={({ isActive }) =>
+              `px-3 py-2 transition ${
+                isActive
+                  ? "text-orange-500 border-b-2 border-orange-500"
+                  : "text-gray-200 hover:text-white"
+              }`
+            }
+          >
+            Search
+          </NavLink>
+
           {token ? (
             <>
               <button
                 onClick={onAddRecipeClick}
-                className="text-green-500 hover:text-green-400 cursor-pointer font-bold hover:underline rounded-full transition"
+                className="relative group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md transition"
               >
-                Add Recipe 
+                Add
+           <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
+            Add a new recipe
+         </span>
               </button>
-              
-              <Link to="/favorites" className=" text-red-500  font-bold hover:underline rounded hover:scale-110 transition-transform duration-200 px-4 transition">
+
+              <NavLink
+                to="/favorites"
+                className={({ isActive }) =>
+                  `px-3 py-2 transition ${
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500"
+                      : "text-gray-300 hover:text-white"
+                  }`
+                }
+              >
                 Favourites
-              </Link>
+              </NavLink>
+
+              <NavLink
+                to="/my-recipes"
+                className={({ isActive }) =>
+                  `relative group px-3 py-2 transition ${
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500"
+                      : "text-gray-300 hover:text-white"
+                  }`
+                }
+              >
+                 Recipes
+             <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
+               My Added recipe
+            </span>
+              </NavLink>
+
               <button
                 onClick={handleLogout}
-                className="text-yellow-500 cursor-pointer hover:text-yellow-400 hover:underline font-bold rounded transition"
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md transition"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link
+              <NavLink
                 to="/login"
-                className="text-blue-500 hover:text-blue-800 font-bold  rounded transition"
+                className={({ isActive }) =>
+                  `px-3 py-2 transition ${
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500"
+                      : "text-gray-300 hover:text-white"
+                  }`
+                }
               >
                 Login
-              </Link>
-              <Link
+              </NavLink>
+
+              <NavLink
                 to="/signup"
-                className="text-green-500 hover:text-green-800 font-bold rounded transition"
+                className={({ isActive }) =>
+                  `px-3 py-2 transition ${
+                    isActive
+                      ? "text-orange-500 border-b-2 border-orange-500"
+                      : "text-gray-300 hover:text-white"
+                  }`
+                }
               >
                 Signup
-              </Link>
+              </NavLink>
             </>
           )}
         </div>
@@ -61,3 +119,4 @@ export default function Header({ onAddRecipeClick }) {
     </header>
   );
 }
+

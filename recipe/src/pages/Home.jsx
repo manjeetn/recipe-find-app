@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import RecipeCard from "../components/RecipeCard";
-import { Link } from "react-router-dom";
+import EmptyState from "../components/EmptyState";
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
- // ...
 useEffect(() => {
     async function fetchFeatured() {
         try {
@@ -23,9 +23,11 @@ useEffect(() => {
             } else {
                 console.error("API response did not contain a results array:", res.data);
                 setFeatured([]); 
+                 setError("Unexpected response from server.");
             }
         } catch (err) {
             console.error("Failed to fetch featured recipes:", err);
+            setError("Failed to fetch recipes. Please try again later.");
             setFeatured([]); 
           } finally {
             setLoading(false);
@@ -37,7 +39,7 @@ useEffect(() => {
 
   return (
     <>
-     <div className="text-center m bg-yellow-500 rounded-full">
+     <div className="text-center  bg-yellow-500 rounded-full">
         <p className="text-lg  text-gray-600 p-1">
           Discover delicious recipes.
         </p>
@@ -45,14 +47,20 @@ useEffect(() => {
     <div className="bg-gray-800 min-h-screen rounded-md w-full px-4">
      
 
-      <div className="mt-6">
+      <div className="mt-5 py-6">
         <h2 className="text-3xl text-white font-bold text-center mb-8">
           Featured Recipes
         </h2>
         {loading ? (
           <p className="text-center text-white">Loading featured recipes...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        ) : error ? ( 
+           <EmptyState
+              title="Oops! Something went wrong"
+              message={error}
+              icon="https://cdn-icons-png.flaticon.com/128/6750/6750337.png"
+            />
+        ) :(
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {featured.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}

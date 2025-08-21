@@ -9,7 +9,7 @@ const recipeSchema = new mongoose.Schema({
          required: true,
     },
     procedure:{ 
-        type: String,
+        type: [String],
         required: true,
     },
   user: {

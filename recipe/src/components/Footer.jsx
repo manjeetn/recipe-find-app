@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-4 mt-8">
+    <footer className="bg-gray-900 text-gray-400 p-4 mt-auto">
       <div className="container mx-auto px-4">
         <div className="flex justify-between text-sm mb-6">
           <div className="px-2">
@@ -26,7 +26,7 @@ export default function Footer() {
             <h3 className="font-semibold text-white mb-2 uppercase">Explore</h3>
             <ul>
               <li><Link to="/search" className="hover:text-orange-400 hover:underline">Search</Link></li>
-              <li><Link to="/favorites" className="hover:text-red-500 hover:underline">Favourites</Link></li>
+              <li><Link to="/favorites" className="hover:text-[#facc15] hover:underline">Favourites</Link></li>
             </ul>
           </div>
         </div>

@@ -40,4 +40,22 @@ router.get("/", auth, async (req, res) => {
     }
 });
 
+router.delete("/:id", auth, async (req, res) => {
+      try {
+        const user = await User.findById(req.user.id);
+         
+        if(!user){
+            return res.status(404).json({message:"User not Found"});
+        }
+        const recipeId = req.params.id;
+        user.favorites = user.favorites.filter((fav) => fav.id.toString() !== recipeId.toString());      
+        await user.save();
+        return res.json(user.favorites);
+      } catch (error) {
+        
+                console.error("Error removing favorite:", error);
+        return res.status(500).json({ message: "Server error. Failed to remove favorite." });
+      }
+});
+
 module.exports = router;
