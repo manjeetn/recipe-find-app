@@ -16,6 +16,8 @@ app.use("/api", authRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/recipe", recipeRoutes);
 app.use("/api/spoonacular", spoonacularRoutes);
+app.use('/uploads', express.static('uploads'));
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

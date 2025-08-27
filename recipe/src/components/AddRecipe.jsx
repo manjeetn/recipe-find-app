@@ -8,8 +8,18 @@ export default function AddRecipeModal({ isOpen, onClose }) {
   const [procedure, setProcedure] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [imageFile, setImageFile] = useState(null);
 
   if (!isOpen) return null;
+
+ const resetForm = () => {
+    setTitle('');
+    setIngredients('');
+    setProcedure('');
+    setImageFile(null);
+    setError('');
+    setSuccess('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +27,6 @@ export default function AddRecipeModal({ isOpen, onClose }) {
     setSuccess('');
 
     const ingredientsArray = ingredients.split('\n').filter(line => line.trim() !== '');
-
     if (ingredientsArray.length === 0) {
       setError('Please add at least one ingredient.');
       return;
@@ -25,24 +34,40 @@ export default function AddRecipeModal({ isOpen, onClose }) {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/recipe', 
-        { name: title, ingredients: ingredientsArray, procedure },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const formData = new FormData();
+      formData.append('name', title);
+      formData.append('ingredients', ingredients);
+      formData.append('procedure', procedure);
+      if (imageFile) {
+        formData.append('image', imageFile); 
+      }
+      
+      const res = await axios.post('/recipe', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        }
+      });
       setSuccess('Recipe added successfully!');
       setTimeout(() => {
+        resetForm();
         onClose();
       }, 1000);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add recipe.');
- }
+    }
+  };
+
+   const handleClose = () => {
+    resetForm();   
+    onClose();
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-md max-w-2xl relative">
         <h2 className="text-2xl font-bold text-white mb-6">Add a New Recipe</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           <input
             type="text"
             placeholder="Recipe Title"
@@ -67,16 +92,21 @@ export default function AddRecipeModal({ isOpen, onClose }) {
             rows="3"
             className="w-full p-3 bg-gray-700 text-white rounded-md border border-gray-600"
           />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={e => setImageFile(e.target.files[0])}
+            className="w-full p-3 bg-gray-800 text-white rounded-md border cursor-pointer hover:bg-gray-700 border-gray-600"
+          />
           {error && <p className="text-red-400">{error}</p>}
           {success && <p className="text-green-400">{success}</p>}
           <div className="flex justify-end gap-4">
-            <button type="submit" className="py-2 px-6 bg-orange-600 hover:bg-orange-700 text-white rounded-md">
+            <button type="submit" className="py-2 px-6 bg-orange-600 hover:bg-orange-700 cursor-pointer text-white rounded-md">
               Add 
             </button>
-            <button type="button" onClick={onClose} className="py-2 px-4 bg-gray-600 hover:bg-gray-500 text-white rounded-md">
+            <button type="button" onClick={handleClose} className="py-2 px-4 bg-gray-700 hover:bg-gray-500 cursor-pointer text-white rounded-md">
               Cancel
             </button>
-           
           </div>
         </form>
       </div>

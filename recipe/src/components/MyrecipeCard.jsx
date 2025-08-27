@@ -1,36 +1,50 @@
 
 export default function MyRecipeCard({ recipe, onDelete }) {
+  const API_BASE = import.meta.env.REACT_APP_API_BASE || "http://localhost:5000";
 
   return (
+    <div className="bg-gray-100 rounded-lg shadow-sm p-4 mb-4 border border-gray-200 flex flex-col min-h-[300px] max-w-sm ">
+      <div className="flex-1">
+        {recipe.image ? (
+          <img
+            className="w-full h-32 object-cover rounded mb-2"
+            src={
+              recipe.image.startsWith("http")
+                ? recipe.image
+                : API_BASE + recipe.image
+            }
+            alt={recipe.name || "Recipe Image"}
+          />
+        ) : (
+          <div className="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-500 rounded mb-2">
+            No Image
+          </div>
+        )}
 
-<div className="bg-gray-50 rounded-lg shadow-md p-6 mb-6 border border-gray-200 transition-all hover:shadow-lg">
-  <h2 className="text-2xl font-semibold text-orange-600 mb-2">{recipe.name}</h2>
-  <hr className="border-gray-300 my-2" />
+        <h2 className="text-xl font-semibold text-orange-600 mb-1 text-center truncate">{recipe.name}</h2>
 
-  <div className="flex gap-12 mb-4">
-    <div className="w-1/2">
-      <h4 className="font-medium text-gray-800 mb-1">Ingredients:</h4>
-      <ul className="list-disc ml-6 text-gray-700">
-        {recipe.ingredients.map((ing, i) => (
-          <li key={i}>{ing}</li>
-        ))}
-      </ul>
+        <div className="mb-1">
+          <h4 className="font-medium text-gray-700 text-sm mb-1">Ingredients:</h4>
+          <p className="text-gray-600 text-sm">{recipe.ingredients.join(", ")}</p>
+        </div>
+
+        <div className="mb-1">
+          <h4 className="font-medium text-gray-700 text-sm mb-1">Procedure:</h4>
+          <ul className="list-disc ml-5 text-gray-600 text-sm">
+            {(Array.isArray(recipe.procedure) ? recipe.procedure : recipe.procedure.split('\n'))
+              .filter(Boolean)
+              .map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+          </ul>
+        </div>
+      </div>
+      <button
+        className="mt-auto px-2 py-2 bg-red-600 cursor-pointer hover:bg-red-700 text-white rounded-lg font-semibold shadow transition-all text-sm"
+        onClick={() => onDelete(recipe._id)}
+      >
+        Delete
+      </button>
     </div>
-
-    <div className="w-1/2">
-      <h4 className="font-medium text-gray-800 mb-1">Procedure:</h4>
-      <p className="text-gray-700 whitespace-pre-line">{recipe.procedure}</p>
-    </div>
-  </div>
-
- 
-    <button
-      className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold shadow transition-all"
-      onClick={() => onDelete(recipe._id)}
-    >
-      Delete
-    </button>
-  
-</div>
-  )
+  );
 }

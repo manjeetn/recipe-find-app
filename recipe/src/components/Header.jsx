@@ -41,7 +41,8 @@ export default function Header({ onAddRecipeClick }) {
             <>
               <button
                 onClick={onAddRecipeClick}
-                className="relative group px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md transition"
+                className="relative rounded-lg group px-4 py-2 bg-green-500 hover:bg-green-600
+                 text-whiterounded-lg shadow-md transition"
               >
                 Add
            <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
