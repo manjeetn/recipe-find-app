@@ -50,7 +50,7 @@ export default function Favorites() {
      );   
   }
   return (
-<div className="flex flex-wrap bg-gray-800">
+<div className="flex flex-wrap rounded-md bg-gray-800">
   {favorites.map((fav) => (
     <div key={fav._id} className="w-full sm:w-1/2 lg:w-1/3 p-5">   
          <RecipeCard

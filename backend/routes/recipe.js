@@ -4,9 +4,11 @@ const Recipe = require("../models/Recipe");
 const auth = require("../middleware/auth");
 const multer = require("multer");
 const path = require("path");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
 
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/"); 
   },
@@ -25,14 +27,19 @@ const fileFilter = (req, file, cb) => {
   } else {
     cb(new Error("Only images are allowed!"));
   }
-};
-const upload = multer({ storage, fileFilter });
+}; */
 
-router.post(
-  "/", 
-  auth, 
-  upload.single("image"),  
-  async (req, res) => {
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "recipes", // folder name in Cloudinary
+    allowed_formats: ["jpg", "jpeg", "png", "gif"],
+  },
+});
+
+const upload = multer({ storage});
+
+router.post( "/", auth, upload.single("image"),  async (req, res) => {
     const { name, ingredients, procedure } = req.body;
     if (!name || !ingredients || !procedure)
       return res.status(400).json({ message: "All fields are required." });
@@ -47,7 +54,7 @@ router.post(
         ingredients: ingredientsArray,
         procedure: Array.isArray(procedure) ? procedure : [procedure],
         user: req.user.id,
-        image: imagePath
+        image: req.file.path || "",
       });
 
       const saveRecipe = await newRecipe.save();
