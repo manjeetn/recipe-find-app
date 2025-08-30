@@ -64,8 +64,8 @@ export default function AddRecipeModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-md max-w-2xl relative">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-60 z-50 flex justify-center items-center">
+   <div className="bg-[rgba(234,234,234,0.1)] p-8 rounded-lg shadow-xl w-full max-w-2xl mx-4 sm:mx-0 relative">
         <h2 className="text-2xl font-bold text-white mb-6">Add a New Recipe</h2>
         <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           <input

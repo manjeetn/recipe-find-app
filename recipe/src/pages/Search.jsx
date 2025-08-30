@@ -105,7 +105,7 @@ export default function Search() {
               disabled={page === 1}
               className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black rounded disabled:opacity-50"
             >
-              Previous
+              Prev
             </button>
             <span className="text-white">
               Page {page} 

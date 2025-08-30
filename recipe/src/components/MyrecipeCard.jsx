@@ -40,7 +40,7 @@ export default function MyRecipeCard({ recipe, onDelete }) {
         </div>
       </div>
       <button
-        className="mt-auto px-2 py-2 bg-red-600 cursor-pointer hover:bg-red-700 text-white rounded-lg font-semibold shadow transition-all text-sm"
+        className="mt-auto px-2 py-2 bg-red-600 cursor-pointer hover:bg-red-700 text-white rounded-lg font-semibold text-sm"
         onClick={() => onDelete(recipe._id)}
       >
         Delete
