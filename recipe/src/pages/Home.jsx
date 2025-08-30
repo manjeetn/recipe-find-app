@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <>
       <div className="text-center bg-yellow-500 rounded-full">
-        <p className="text-lg text-gray-600 p-1">
+        <p className="text-lg text-black">
           Discover delicious recipes.
         </p>
       </div>

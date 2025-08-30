@@ -89,7 +89,7 @@ export default function Footer() {
         <hr className="border-gray-700 my-2" />
 
         <div className="flex flex-col md:flex-row justify-center md:justify-between items-center text-xs gap-3">
-          <p className="text-center md:text-left">
+          <p className="text-center ">
             &copy; {new Date().getFullYear()} FlavourFind. All rights reserved.
           </p>
         </div>
