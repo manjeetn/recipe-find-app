@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -5,25 +6,25 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-400 p-4 mt-auto pb-16 shadow-md">
       <div className="container mx-auto px-4">
         
-        <div className="flex flex-col md:flex-row md:justify-between text-sm mb-6 gap-6 md:gap-0">
+        <div className="flex flex-row flex-wrap justify-between text-sm mb-6 gap-6">
           
-          <div className="px-2 text-center md:text-left">
+          <div className="px-2 text-left">
             <h2 className="text-xl font-bold text-orange-400">FlavourFind</h2>
           </div>
 
-          <div className="px-2 text-center md:text-left">
+          <div className="px-2 text-left">
             <h3 className="font-semibold text-white mb-2 uppercase">Visit Us</h3>
-            <p>123 New delhi, Delhi</p>
+            <p>123 New delhi</p>
             <p>Foodie City, 110003</p>
           </div>
 
-          <div className="px-2 text-center md:text-left">
+          <div className="px-2 text-left">
             <h3 className="font-semibold text-white mb-2 uppercase">Contact Us</h3>
             <p>+91 9998859369</p>
             <p>contact@flavourfind.com</p>
           </div>
 
-          <div className="px-2 text-center md:text-right">
+          <div className="px-2 text-left">
             <h3 className="font-semibold text-white mb-2 uppercase">Explore</h3>
             <ul className="space-y-1">
               <li>
@@ -42,8 +43,8 @@ export default function Footer() {
 
         <hr className="border-gray-700 my-2" />
 
-        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center text-xs gap-3">
-          <p className="text-center ">
+        <div className="flex justify-center items-center text-xs">
+          <p className="text-center">
             &copy; {new Date().getFullYear()} FlavourFind. All rights reserved.
           </p>
         </div>
@@ -51,3 +52,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

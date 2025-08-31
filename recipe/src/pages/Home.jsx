@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import RecipeCard from "../components/RecipeCard";
 import EmptyState from "../components/EmptyState";
-
+import LoaderMessage from "../components/ToastNotify";
 export default function Home() {
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,6 +49,7 @@ export default function Home() {
 
   return (
     <>
+    
       <div className="text-center bg-yellow-500 rounded-full">
         <p className="text-lg text-black">
           Discover delicious recipes.
@@ -59,9 +60,9 @@ export default function Home() {
           <h2 className="text-3xl text-white font-bold text-center mb-8">
             Featured Recipes
           </h2>
-          {loading ? (
-            <p className="text-center text-white">Loading featured recipes...</p>
-          ) : error ? (
+          {loading ?  (
+             <LoaderMessage />  
+               ) : error ? (
             <EmptyState
               title="Oops! Something went wrong"
               message={error}

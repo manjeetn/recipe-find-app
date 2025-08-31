@@ -83,13 +83,18 @@ export default function   RecipeCard({ recipe, isFavorite = false, onRemove }) {
   }
 
   return (
-    <div className="bg-[rgba(234,234,234,0.1)] flex flex-col h-full 
-    rounded-md shadow hover:scale-110 transition-transform duration-300 p-4 mb-3">
+    <div className="bg-gray-900 flex flex-col h-full 
+    rounded-md shadow-lg hover:scale-105 transition-transform duration-300 p-4 mb-3">
      {message && ( 
        <div className="text-yellow-300 text-sm mb-2">{message}</div>
     )}
-      <img src={image} alt={title} className=" w-full h-48 object-cover rounded mb-2" />
-      <h3 className="text-sm text-white font-semibold mb-2">{title}</h3>
+    <div className="w-full aspect-square md:aspect-auto md:h-48 mb-2">
+      <img src={image} alt={title} 
+      className=" w-full h-full object-cover rounded-md mb-2" />
+      </div>
+      <h3 className="text-sm text-white font-semibold mb-2 line-clamp-2">
+        {title}
+        </h3>
       <div className="mt-auto flex justify-between items-center">
         <Link
           to={`/recipe/${id}`}
