@@ -7,15 +7,18 @@ export default function Signup() {
   const [password, setPassword] = useState("");
     const [name, setName] = useState("");
   const [error, setError] = useState("");
+   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
     try {
-      const res = await axios.post("/signup", { name, email, password });
-      localStorage.setItem("token", res.data.token);
+      await axios.post("/signup", { name, email, password });
+      setSuccess("Verification email sent! Please check your inbox.");
+      setTimeout(() => navigate("/login"), 2000);
       navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed.");
@@ -28,6 +31,8 @@ export default function Signup() {
        h-100 p-8 rounded-2xl shadow w-full max-w-md space-y-4">
         <h2 className="text-2xl  font-bold text-white text-center">Sign Up</h2>
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        {success && <p className="text-green-500 text-sm text-center">{success}</p>}
+
         <input
           type="text"
           placeholder="Full Name"

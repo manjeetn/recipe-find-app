@@ -10,13 +10,20 @@ import Footer from './components/Footer';
 import AddRecipeModal from './components/AddRecipe';
 import { useState } from 'react';
 import MyRecipes from './pages/MyRecipe';
+import VerifyEmail from './pages/verifyEmail';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+
+
 
 function App() {
 
   const [isOpen, setIsOpen] = useState(false); 
   return (
      <div className="flex flex-col min-h-screen">
-   <Header onAddRecipeClick={() => setIsOpen(true)} />     
+
+   <Header onAddRecipeClick={() => setIsOpen(true)} /> 
+
      <main className=" flex-grow container mx-auto p-4 pt-20">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -25,10 +32,16 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/recipe/:id" element={<RecipeDetails />} />
           <Route path="/favorites" element={<Favorites />} />
-       <Route path='/my-recipes' element={<MyRecipes />}/>
+          <Route path='/my-recipes' element={<MyRecipes />}/>
+          <Route path="/verify/:token" element={<VerifyEmail />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
         </Routes>
       </main>
+
       <Footer />
+
       <AddRecipeModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );

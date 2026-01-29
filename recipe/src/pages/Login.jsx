@@ -57,6 +57,13 @@ export default function Login() {
         bg-[rgba(244,130,34,1)] text-white rounded hover:bg-orange-500">
           Log In
         </button>
+
+        <div className="text-right">
+       <Link to="/forgot-password" className="text-yellow-400 text-sm hover:underline">
+        Forgot Password?
+       </Link>
+        </div>
+
       </form>
     </div>
   );

@@ -14,7 +14,19 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true 
 },
-  favorites: [{
+
+isVerified: {
+    type:Boolean,
+    default: false,
+},
+
+verificationToken: String,
+
+resetPasswordToken: String,
+
+resetPasswordExpires: Date,
+
+favorites: [{
       id:{ type: Number, required: true },
       title: { type: String, required: true },
       image: { type: String, required: true },
@@ -22,3 +34,4 @@ const userSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("User", userSchema);
+
