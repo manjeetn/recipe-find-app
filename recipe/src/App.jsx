@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import AddRecipeModal from './components/AddRecipe';
 import { useState } from 'react';
 import MyRecipes from './pages/MyRecipe';
-import VerifyEmail from './pages/verifyEmail';
+import VerifyEmail from './pages/VerifyEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
